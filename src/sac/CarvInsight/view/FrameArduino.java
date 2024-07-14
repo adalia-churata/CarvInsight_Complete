@@ -27,6 +27,7 @@ public class FrameArduino extends javax.swing.JFrame {
     private boolean transferenciaRealizada;
     public FrameArduino() {
         initComponents();
+        dato();
     }
 
     /**
