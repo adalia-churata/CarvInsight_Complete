@@ -44,7 +44,7 @@ public class Assignment extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ImageIcon icon = new ImageIcon(getClass().getResource("/img/fondo_C8CFD8.png"));
+        ImageIcon icon = new ImageIcon("src/img/fondo_C8CFD8.png");
         Image image = icon.getImage();
         jDesktopPane1 = new javax.swing.JDesktopPane(){
             public void paintComponent(Graphics g){
@@ -117,7 +117,7 @@ public class Assignment extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         String new_id= id_asignment+"";
         RegistroUso.txtcode_asig.setText(new_id);
-        
+        FrameArduino.txtId.setText(new_id);
         //SEND IMAGE TO JLABEL
          Imgs Llenar = new Imgs();
          

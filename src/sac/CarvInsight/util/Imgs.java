@@ -41,6 +41,7 @@ public class Imgs {
 //    
 //    }
     
+    
     public Icon getIcon(String name, int width, int heigth){
         ImageIcon image = new ImageIcon("src/img/"+name+".png");
         Icon icon = new ImageIcon(image.getImage().getScaledInstance(width,heigth,Image.SCALE_SMOOTH));

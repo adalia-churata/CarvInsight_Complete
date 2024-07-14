@@ -101,7 +101,7 @@ public class RegistroUso extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ImageIcon icon = new ImageIcon(getClass().getResource("/img/fondo_C8CFD8.png"));
+        ImageIcon icon = new ImageIcon("src/img/fondo_C8CFD8.png");
         Image image = icon.getImage();
         desktopPane = new javax.swing.JDesktopPane(){
             public void paintComponent(Graphics g){
@@ -126,10 +126,10 @@ public class RegistroUso extends javax.swing.JFrame {
         txtcode_asig = new javax.swing.JTextField();
         img_machine = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
         date = new javax.swing.JTextField();
         lbl_logo = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        lblDataEntry = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1400, 800));
@@ -307,9 +307,9 @@ public class RegistroUso extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("MS Gothic", 0, 48)); // NOI18N
-        jLabel1.setText("DATE:");
+        lblDate.setBackground(new java.awt.Color(255, 255, 255));
+        lblDate.setFont(new java.awt.Font("MS Gothic", 0, 48)); // NOI18N
+        lblDate.setText("DATE:");
 
         date.setEditable(false);
         date.setBackground(new java.awt.Color(217, 217, 217));
@@ -332,7 +332,7 @@ public class RegistroUso extends javax.swing.JFrame {
                         .addGroup(container1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(img_machine, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(container1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(lblDate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
@@ -347,7 +347,7 @@ public class RegistroUso extends javax.swing.JFrame {
                     .addGroup(container1Layout.createSequentialGroup()
                         .addGap(92, 92, 92)
                         .addGroup(container1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(37, 37, 37)
                         .addComponent(img_machine, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -363,11 +363,11 @@ public class RegistroUso extends javax.swing.JFrame {
         desktopPane.add(lbl_logo);
         lbl_logo.setBounds(0, 0, 1400, 100);
 
-        jTextField1.setBackground(new java.awt.Color(21, 100, 192));
-        jTextField1.setFont(new java.awt.Font("Lucida Console", 1, 48)); // NOI18N
-        jTextField1.setText("Data Entry");
-        desktopPane.add(jTextField1);
-        jTextField1.setBounds(60, 110, 340, 50);
+        lblDataEntry.setBackground(new java.awt.Color(21, 100, 192));
+        lblDataEntry.setFont(new java.awt.Font("Lucida Console", 1, 48)); // NOI18N
+        lblDataEntry.setText("Data Entry");
+        desktopPane.add(lblDataEntry);
+        lblDataEntry.setBounds(60, 110, 340, 50);
 
         getContentPane().add(desktopPane, java.awt.BorderLayout.CENTER);
 
@@ -441,6 +441,8 @@ public class RegistroUso extends javax.swing.JFrame {
     private void cargarIcons(){
         Llenar.Img2Label(lbl_logo, "NewHead");
         Llenar.Img2Btn(btn_Logout, "btnLogOut");
+        lblDate.setForeground(Color.white);
+        lblDataEntry.setForeground(Color.white);
     }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -483,7 +485,6 @@ public class RegistroUso extends javax.swing.JFrame {
     private javax.swing.JDesktopPane desktopPane;
     public static javax.swing.JLabel img_machine;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -491,7 +492,8 @@ public class RegistroUso extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField lblDataEntry;
+    private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lbl_logo;
     private javax.swing.JTextField txtHours;
     private javax.swing.JTextField txtMinutes;
