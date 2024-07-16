@@ -4,11 +4,18 @@
  */
 package sac.CarvInsight.view;
 
+import comunicacionserial.ArduinoExcepcion;
+import comunicacionserial.ComunicacionSerial_Arduino;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
+import jssc.SerialPortException;
 import sac.CarvInsight.model.DAO.Asig_MaquinariaDAO;
 import sac.CarvInsight.model.DAO.Asig_MaquinariaDAOImpl;
 import sac.CarvInsight.model.DAO.Reg_UsoMaqDAO;
@@ -25,9 +32,12 @@ public class FrameArduino extends javax.swing.JFrame {
     private static final ConexionArduino conexion = new ConexionArduino();
     public static boolean statusHilo=false;
     private boolean transferenciaRealizada;
+    ComunicacionSerial_Arduino conex = new ComunicacionSerial_Arduino();
+    
     public FrameArduino() {
         initComponents();
         dato();
+        llenarCombo();
     }
 
     /**
@@ -45,10 +55,6 @@ public class FrameArduino extends javax.swing.JFrame {
     }
     
     
-    
-    public static ConexionArduino getConexion() {
-        return conexion;
-    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -64,9 +70,7 @@ public class FrameArduino extends javax.swing.JFrame {
         btnSeleccionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        desktopPane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setPreferredSize(new java.awt.Dimension(1400, 800));
 
         btnConectar.setText("Conectar");
         btnConectar.addActionListener(new java.awt.event.ActionListener() {
@@ -74,19 +78,26 @@ public class FrameArduino extends javax.swing.JFrame {
                 btnConectarActionPerformed(evt);
             }
         });
-        desktopPane.add(btnConectar, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 106, -1, -1));
+        desktopPane.add(btnConectar);
+        btnConectar.setBounds(34, 106, 81, 27);
 
-        lblEst.setText("jLabel1");
-        desktopPane.add(lblEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 111, 104, -1));
+        lblEst.setText("Estado");
+        desktopPane.add(lblEst);
+        lblEst.setBounds(133, 111, 104, 16);
 
         cmbPuer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        desktopPane.add(cmbPuer, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 106, 122, -1));
-        desktopPane.add(txtRead, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 140, -1));
-        desktopPane.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 167, 75, -1));
-        desktopPane.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 75, -1));
+        desktopPane.add(cmbPuer);
+        cmbPuer.setBounds(255, 106, 122, 26);
+        desktopPane.add(txtRead);
+        txtRead.setBounds(40, 230, 140, 26);
+        desktopPane.add(txtId);
+        txtId.setBounds(127, 167, 75, 26);
+        desktopPane.add(jTextField3);
+        jTextField3.setBounds(370, 230, 75, 26);
 
         jLabel1.setText("Id_Asignment");
-        desktopPane.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 172, 75, -1));
+        desktopPane.add(jLabel1);
+        jLabel1.setBounds(34, 172, 75, 16);
 
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,18 +105,21 @@ public class FrameArduino extends javax.swing.JFrame {
                 btnSeleccionarActionPerformed(evt);
             }
         });
-        desktopPane.add(btnSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 167, -1, -1));
+        desktopPane.add(btnSeleccionar);
+        btnSeleccionar.setBounds(214, 167, 95, 27);
 
-        getContentPane().add(desktopPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 550));
+        getContentPane().add(desktopPane, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
         if (btnConectar.getText().equals("Conectar")) {
-            conexion.conectar(cmbPuer.getSelectedItem().toString().trim());
-            conexion.iniciarIo();
-            conexion.initListener();
+            try {
+                conex.arduinoRXTX((String) cmbPuer.getSelectedItem(), 9600, listen);
+            } catch (ArduinoExcepcion ex) {
+                Logger.getLogger(FrameArduino.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if (conexion.isConectado()) {
                 lblEst.setText("Conectado");
                 btnConectar.setText("Desconectar");
@@ -142,6 +156,22 @@ public class FrameArduino extends javax.swing.JFrame {
         return nueva_fecha;
     }
     
+
+SerialPortEventListener listen = new SerialPortEventListener(){
+    @Override
+    public void serialEvent(SerialPortEvent spe){
+        try {
+            if(conex.isMessageAvailable()){
+                txtRead.setText(conex.printMessage());
+            }
+        } catch (SerialPortException ex) {
+            Logger.getLogger(FrameArduino.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ArduinoExcepcion ex) {
+            Logger.getLogger(FrameArduino.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+};
+
     public void dato(){
         
     transferenciaRealizada=false;
