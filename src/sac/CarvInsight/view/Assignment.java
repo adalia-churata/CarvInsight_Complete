@@ -56,6 +56,8 @@ public class Assignment extends javax.swing.JInternalFrame {
         header = new javax.swing.JLabel();
         btn_Assignment = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(800, 660));
+
         jDesktopPane1.setPreferredSize(new java.awt.Dimension(833, 632));
 
         jScrollPane1.setBackground(new java.awt.Color(6, 42, 64));
@@ -69,7 +71,7 @@ public class Assignment extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id_Assignment", "Id_Machine", "Id_Prod", "Description"
+                "Id_Assignment", "Machine", "Type", "Description"
             }
         ));
         table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -117,19 +119,19 @@ public class Assignment extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         String new_id= id_asignment+"";
         //RegistroUso.txtcode_asig.setText(new_id);
-        FrameArduino.txtId.setText(new_id);
+        Principal.txtNumero.setText(new_id);
         //SEND IMAGE TO JLABEL
          Imgs Llenar = new Imgs();
          
          Asig_MaquinariaDAO dao = new Asig_MaquinariaDAOImpl();
             String tipo_mac = dao.findTipoMac(id_asignment);
-         /*
+         
             switch (tipo_mac) {
-                    case "Sliter" -> Llenar.Img2Label(RegistroUso.img_machine, "slitter");
-                    case "Maquina tubera" -> Llenar.Img2Label(RegistroUso.img_machine, "roll");
-                    case "Horno" -> Llenar.Img2Label(RegistroUso.img_machine, "furance");
+                    case "Sliter" -> Llenar.Img2Label(Principal.img_machine, "slitter");
+                    case "Maquina tubera" -> Llenar.Img2Label(Principal.img_machine, "roll");
+                    case "Horno" -> Llenar.Img2Label(Principal.img_machine, "furance");
                     default -> RegistroUso.img_machine.setIcon(null);
-                }*/
+                }
         this.dispose();
         
     }//GEN-LAST:event_btn_AssignmentActionPerformed

@@ -16,7 +16,7 @@ public class Asig_MaquinariaDAOImpl implements Asig_MaquinariaDAO{
     @Override
     public List<Asig_Maquinaria> findAllIncompleted() {
     List<Asig_Maquinaria> listAsig = new ArrayList<>();
-    String query = "Select id_asig, id_maq, id_prod, description from asig_machines WHERE state_asig=1";
+    String query = "Select a.id_asig, m.model_maq, m.tipo_maq, a.description from asig_machines a INNER JOIN machines m WHERE a.id_maq=m.id_maq AND a.state_asig=1";
     try {
         Connection conn = Conexion.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -24,8 +24,8 @@ public class Asig_MaquinariaDAOImpl implements Asig_MaquinariaDAO{
         while(rs.next()){
             Asig_Maquinaria asigMaq= new Asig_Maquinaria();
             asigMaq.setId_asig(rs.getInt("id_asig"));
-            asigMaq.setId_maq(rs.getInt("id_maq"));
-            asigMaq.setId_prod(rs.getInt("id_prod"));
+            asigMaq.setId_maq(rs.getString("model_maq"));
+            asigMaq.setId_prod(rs.getString("tipo_maq"));
             asigMaq.setDescription(rs.getString("description"));
             listAsig.add(asigMaq);
         }
@@ -78,5 +78,25 @@ public class Asig_MaquinariaDAOImpl implements Asig_MaquinariaDAO{
             System.out.println("Ha ocurrido un error: " + e.getMessage());
         }
         return name_mac;
+    }
+    
+    @Override
+    public String findTimeEstimate(int id_Asig) {
+        String time_estimate="";
+        String Query = "SELECT time_estimate FROM asig_machines "
+                + "WHERE id_asig = ?";
+        try {
+            Connection conn = Conexion.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(Query);
+            stmt.setInt(1, id_Asig);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                float recibirFloat = rs.getFloat(1);
+                time_estimate = String.valueOf(recibirFloat);
+            }
+        } catch (Exception e) {
+            System.out.println("Ha ocurrido un error: " + e.getMessage());
+        }
+        return time_estimate;
     }
 }

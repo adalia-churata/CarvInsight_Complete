@@ -6,6 +6,7 @@ package sac.CarvInsight.view;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
 import sac.CarvInsight.model.DAO.UserDAO;
 import sac.CarvInsight.model.DAO.UserDAOImpl;
@@ -181,18 +182,27 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         int n = validar(txt_User.getText(),String.valueOf( txt_Pass.getPassword()));
         if(n==1){
-            JOptionPane.showMessageDialog(rootPane, "Inicio de sesion exitoso");
+             UIManager.put("Button.background", Color.white);
+            UIManager.put("control", new Color(	49, 107, 28));
+            JOptionPane.showMessageDialog(null, "<html><div><p style='color:white; font-size: 20px;'>CONFIRMATION</p></div>"
+                    + "<div><p style='color:white; font-size: 14px;'>Successful login</p></div></html>","",JOptionPane.PLAIN_MESSAGE, llenar.getIcon("success", 50, 50));
+            UIManager.put("control", new Color(		214, 217, 223));
             if(txt_User.getText().equals("admin")){
                 OEEGraphics oee = new OEEGraphics();
                 oee.setVisible(true);
                 this.dispose();
             }else{
-                RegistroUso reg = new RegistroUso();
+                Principal reg = new Principal();
                 reg.setVisible(true);
                 this.dispose();
             }
         }else{
-            JOptionPane.showMessageDialog(rootPane, "Acceso denegado");
+            UIManager.put("Button.background", Color.white);
+            UIManager.put("control", new Color(	254, 74, 74));
+            UIManager.put("nimbusBase", new Color(	207, 198, 198));
+            JOptionPane.showMessageDialog(null, "<html><div><p style='color:white; font-size: 20px;'>ALERT !</p></div>"
+                    + "<div><p style='color:white; font-size: 14px;'>Access denied</p></div></html>","",JOptionPane.PLAIN_MESSAGE, llenar.getIcon("alert", 50, 50));
+            UIManager.put("control", new Color(		214, 217, 223));
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed

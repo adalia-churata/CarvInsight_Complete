@@ -8,14 +8,14 @@ public class Asig_Maquinaria {
     private int state;
     private float time_estimade;
     private String date_plann;
-    private int id_prod;
-    private int id_maq;
+    private String id_prod;
+    private String id_maq;
     private String description;
 
     public Asig_Maquinaria() {
     }
 
-    public Asig_Maquinaria(int id_asig, int state, float time_estimade, String date_plann, int id_prod, int id_maq, String description) {
+    public Asig_Maquinaria(int id_asig, int state, float time_estimade, String date_plann, String id_prod, String id_maq, String description) {
         this.id_asig = id_asig;
         this.state = state;
         this.time_estimade = time_estimade;
@@ -59,19 +59,19 @@ public class Asig_Maquinaria {
         this.date_plann = date_plann;
     }
 
-    public int getId_prod() {
+    public String getId_prod() {
         return id_prod;
     }
 
-    public void setId_prod(int id_prod) {
+    public void setId_prod(String id_prod) {
         this.id_prod = id_prod;
     }
 
-    public int getId_maq() {
+    public String getId_maq() {
         return id_maq;
     }
 
-    public void setId_maq(int id_maq) {
+    public void setId_maq(String id_maq) {
         this.id_maq = id_maq;
     }
 
